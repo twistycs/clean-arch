@@ -38,11 +38,39 @@ func SetUpRoutes() *gin.Engine {
 
 	orderRepo := repositories.RepositoriesOrder(database.DB)
 	orderService := services.NewOrderService(orderRepo)
-	orderController := controller.OrderControllerInit(orderService)
+	orderController := controller.OrderControllerInit(orderService, userService)
 
-	order := r.Group("/v1/order")
+	order := r.Group("/v1/orders")
 	{
 		order.GET("/", orderController.GetAllOrderController)
+	}
+	{
+		order.POST("/", orderController.InsertOrderController)
+	}
+
+	branchRepo := repositories.RepositoriesBranch(database.DB)
+	branchService := services.NewBranchService(branchRepo)
+	branchController := controller.BranchControllerInit(branchService)
+
+	branch := r.Group("/v1/branches")
+	{
+		branch.GET("/", branchController.GetAllBranchController)
+	}
+
+	{
+		branch.GET("/:id", branchController.GetBranchByIdController)
+	}
+
+	{
+		branch.POST("/", branchController.InsertBranchController)
+	}
+
+	{
+		branch.PUT("/:id", branchController.UpdateBranchController)
+	}
+
+	{
+		branch.DELETE("/:id", branchController.DeleteBranchByIdController)
 	}
 
 	return r
