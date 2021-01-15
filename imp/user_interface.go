@@ -7,6 +7,7 @@ type UserService interface {
 	GetUserById(id string) (user models.User, err error)
 	InsertUser(u *models.User) (err error)
 	UpdateUser(u *models.User, id string) (err error)
+	DeleteUserById(id string) (err error)
 }
 
 type UserRepository interface {
@@ -14,4 +15,5 @@ type UserRepository interface {
 	GetUserById(u *models.User, id string) (err error)
 	InsertUser(u *models.User) (err error)
 	UpdateUser(u *models.User) (err error)
+	DeleteUserById(id string) (err error)
 }
