@@ -33,6 +33,15 @@ func (userService *userService) GetUserById(id string) (users models.User, err e
 	return user, handle
 }
 
+func (userService *userService) GetUserByUserId(userId string) (users models.User, err error) {
+	var user models.User
+	handle := userService.userRepo.GetUserByUserId(&user, userId)
+	if handle != nil {
+		fmt.Println("Error")
+	}
+	return user, handle
+}
+
 func (userService *userService) InsertUser(user *models.User) (err error) {
 	handle := userService.userRepo.InsertUser(user)
 	if handle != nil {
