@@ -24,8 +24,8 @@ func (userService *userService) GetAllUser() (users []models.User, err error) {
 	return user, handle
 }
 
-func (userService *userService) GetUserById(id string) (users []models.User, err error) {
-	var user []models.User
+func (userService *userService) GetUserById(id string) (users models.User, err error) {
+	var user models.User
 	handle := userService.userRepo.GetUserById(&user, id)
 	if handle != nil {
 		fmt.Println("Error")
@@ -41,7 +41,7 @@ func (userService *userService) InsertUser(user *models.User) (err error) {
 	return handle
 }
 
-func (userService *userService) UpdateUser(user *models.User) (err error) {
+func (userService *userService) UpdateUser(user *models.User, id string) (err error) {
 	handle := userService.userRepo.UpdateUser(user)
 	if handle != nil {
 		fmt.Println("Error")
