@@ -48,3 +48,11 @@ func (userService *userService) UpdateUser(user *models.User, id string) (err er
 	}
 	return handle
 }
+
+func (userService *userService) DeleteUserById(id string) (err error) {
+	handle := userService.userRepo.DeleteUserById(id)
+	if handle != nil {
+		fmt.Println("Error")
+	}
+	return handle
+}
