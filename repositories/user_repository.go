@@ -28,6 +28,13 @@ func (repo *repository) GetUserById(u *models.User, id string) (err error) {
 	return nil
 }
 
+func (repo *repository) GetUserByUserId(u *models.User, userId string) (err error) {
+	if err = repo.connect.Where("user_id = ?", userId).Find(u).Error; err != nil {
+		return err
+	}
+	return nil
+}
+
 func (repo *repository) InsertUser(u *models.User) (err error) {
 	if err = repo.connect.Create(u).Error; err != nil {
 		return err
