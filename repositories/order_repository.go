@@ -22,3 +22,10 @@ func (repo *orderRepository) GetAllOrder(o *[]models.Order) (err error) {
 	}
 	return nil
 }
+
+func (repo *repository) InsertOrder(u *models.Order) (err error) {
+	if err = repo.connect.Create(u).Error; err != nil {
+		return err
+	}
+	return nil
+}

@@ -23,3 +23,14 @@ func (orderService *orderService) GetAllOrder() (ordes []models.Order, err error
 	}
 	return order, handle
 }
+
+// func (orderService *orderService) InsertOrder(user *models.User) (err error) {
+// 	t := time.Now()
+// 	fmt.Println(t.String())
+
+// 	orderNo, err := strconv.ParseInt(strings.Replace(t.Format("20060102150405.0000"), ".", "", -1), 10, 64)
+// 	if err != nil {
+// 		log.Error(err.Error())
+// 	}
+// 	fmt.Println(orderNo)
+// }
