@@ -32,6 +32,10 @@ func SetUpRoutes() *gin.Engine {
 		user.PUT("/:id", userController.UpdateUserController)
 	}
 
+	{
+		user.DELETE("/:id", userController.DeleteUserByIdController)
+	}
+
 	orderRepo := repositories.RepositoriesOrder(database.DB)
 	orderService := services.NewOrderService(orderRepo)
 	orderController := controller.OrderControllerInit(orderService)
