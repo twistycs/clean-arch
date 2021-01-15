@@ -80,9 +80,30 @@ func (u *UserController) UpdateUserController(c *gin.Context) {
 				log.Error("Err : ", err)
 				c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 			}
-			response.StatusCode = http.StatusAccepted
+			response.StatusCode = http.StatusOK
 			response.StatusMsg = "Updated"
 			c.JSON(http.StatusOK, response)
 		}
+	}
+}
+
+func (u *UserController) DeleteUserByIdController(c *gin.Context) {
+	id := c.Params.ByName("id")
+	log.Info("[User Controller] Delete User ID : ", id)
+	resp, err := u.userService.GetUserById(id)
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusInternalServerError, err)
+	} else if (models.User{} == resp) {
+		response.StatusCode = http.StatusNotFound
+		response.StatusMsg = "ID : " + id + " Not Found"
+		c.JSON(http.StatusNotFound, response)
+	} else {
+		if err := u.userService.DeleteUserById(id); err != nil {
+			log.Error("Err : ", err)
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		}
+		response.StatusCode = http.StatusOK
+		response.StatusMsg = "Deleted"
+		c.JSON(http.StatusOK, response)
 	}
 }
