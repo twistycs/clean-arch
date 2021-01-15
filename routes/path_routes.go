@@ -25,7 +25,11 @@ func SetUpRoutes() *gin.Engine {
 	}
 
 	{
-		user.POST("/user", userController.InsertUserController)
+		user.POST("/", userController.InsertUserController)
+	}
+
+	{
+		user.PUT("/:id", userController.UpdateUserController)
 	}
 
 	orderRepo := repositories.RepositoriesOrder(database.DB)
