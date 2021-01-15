@@ -21,7 +21,7 @@ func (repo *repository) GetAllUser(u *[]models.User) (err error) {
 	return nil
 }
 
-func (repo *repository) GetUserById(u *[]models.User, id string) (err error) {
+func (repo *repository) GetUserById(u *models.User, id string) (err error) {
 	if err = repo.connect.Where("id = ?", id).Find(u).Error; err != nil {
 		return err
 	}
