@@ -41,3 +41,10 @@ func (repo *repository) UpdateUser(u *models.User) (err error) {
 	}
 	return nil
 }
+
+func (repo *repository) DeleteUserById(id string) (err error) {
+	if err = repo.connect.Delete(&models.User{}, id).Error; err != nil {
+		return err
+	}
+	return nil
+}
