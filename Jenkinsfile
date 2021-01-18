@@ -6,7 +6,7 @@ pipeline {
             steps {
                 echo 'build/build-bin.sh'
             }
-        }
+        } 
         stage('Test2') {
             steps {
                 echo 'build/run-tests.sh'
