@@ -2,12 +2,12 @@ pipeline {
     agent any
 
     stages {
-        stage('Test1') {
+        stage('Test') {
             steps {
                 echo 'build/build-bin.sh'
             }
         }
-        stage('Test2') {
+        stage('Test1') {
             steps {
                 echo 'build/run-tests.sh'
             }
