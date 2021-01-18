@@ -11,13 +11,11 @@ import (
 
 type OrderController struct {
 	orderService imp.OrderService
-	userService  imp.UserService
 }
 
-func OrderControllerInit(orderService imp.OrderService, userService imp.UserService) *OrderController {
+func OrderControllerInit(orderService imp.OrderService) *OrderController {
 	return &OrderController{
 		orderService: orderService,
-		userService:  userService,
 	}
 }
 func (o *OrderController) GetAllOrderController(c *gin.Context) {
@@ -35,12 +33,17 @@ func (o *OrderController) InsertOrderController(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	log.Info(jsonInputOrder)
-	user, err := o.userService.GetUserByUserId(jsonInputOrder.User.UserID)
-	jsonInputOrder.User = user
-	log.Info(jsonInputOrder)
-	if err != nil {
-		log.Error(err.Error())
+	err := o.orderService.InsertOrder(&jsonInputOrder)
+	if err.Error() == "UserID" {
+		c.JSON(http.StatusNotFound, gin.H{"error": "User Id Not Found"})
+	} else if err != nil {
+		switch errorCase := err.Error(); {
+		case errorCase == "UserID not found":
+			c.JSON(http.StatusNotFound, gin.H{"error": "User Id Not Found"})
+			break
+		default:
+			c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		}
 	} else {
 		c.JSON(http.StatusOK, jsonInputOrder)
 	}

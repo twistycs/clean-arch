@@ -14,6 +14,14 @@ func SetUpRoutes() *gin.Engine {
 	userService := services.NewService(userRepo)
 	userController := controller.UserControllerInit(userService)
 
+	branchRepo := repositories.RepositoriesBranch(database.DB)
+	branchService := services.NewBranchService(branchRepo)
+	branchController := controller.BranchControllerInit(branchService)
+
+	orderRepo := repositories.RepositoriesOrder(database.DB)
+	orderService := services.NewOrderService(orderRepo, userRepo, branchRepo)
+	orderController := controller.OrderControllerInit(orderService)
+
 	r := gin.Default()
 	user := r.Group("/v1/users")
 	{
@@ -36,10 +44,6 @@ func SetUpRoutes() *gin.Engine {
 		user.DELETE("/:id", userController.DeleteUserByIdController)
 	}
 
-	orderRepo := repositories.RepositoriesOrder(database.DB)
-	orderService := services.NewOrderService(orderRepo)
-	orderController := controller.OrderControllerInit(orderService, userService)
-
 	order := r.Group("/v1/orders")
 	{
 		order.GET("/", orderController.GetAllOrderController)
@@ -47,10 +51,6 @@ func SetUpRoutes() *gin.Engine {
 	{
 		order.POST("/", orderController.InsertOrderController)
 	}
-
-	branchRepo := repositories.RepositoriesBranch(database.DB)
-	branchService := services.NewBranchService(branchRepo)
-	branchController := controller.BranchControllerInit(branchService)
 
 	branch := r.Group("/v1/branches")
 	{
