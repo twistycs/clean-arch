@@ -4,6 +4,7 @@ go 1.15
 
 require (
 	github.com/gin-gonic/gin v1.6.3
+	github.com/google/martian v2.1.0+incompatible
 	github.com/google/uuid v1.1.5
 	github.com/sirupsen/logrus v1.2.0
 	github.com/spf13/viper v1.7.1
