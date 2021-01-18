@@ -2,9 +2,9 @@ package models
 
 type User struct {
 	ID               uint   `gorm:"primaryKey;column:ID"`
-	UserID           string `gorm:"column:USER_ID"`
-	FirstName        string `gorm:"column:FIRST_NAME"`
-	LastName         string `gorm:"column:LAST_NAME"`
+	UserID           string `gorm:"column:USER_ID;not null"`
+	FirstName        string `gorm:"column:FIRST_NAME;not null"`
+	LastName         string `gorm:"column:LAST_NAME;not null"`
 	Email            string `gorm:"column:EMAIL"`
 	MobileNo         string `gorm:"column:MOBILE_NO"`
 	PresentAddress   string `gorm:"column:PRESENT_ADDRESS"`
