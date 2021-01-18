@@ -4,12 +4,12 @@ pipeline {
     stages {
         stage('Test') {
             steps {
-                echo 'build/build-bin.sh'
+                echo 'test'
             }
         }
         stage('Test1') {
             steps {
-                echo 'build/run-tests.sh'
+                echo 'test'
             }
         }
     }
