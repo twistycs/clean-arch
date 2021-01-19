@@ -5,5 +5,10 @@ pipeline {
         steps {
             git([url: 'https://github.com/twistycs/clean-arch.git', branch: 'dev', credentialsId: 'wittharit-github-user-token'])
         }
+
+        stage('Test Echo') {
+        steps {
+            Echo 'Test'
+        }
     }
 }
