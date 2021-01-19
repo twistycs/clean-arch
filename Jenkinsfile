@@ -10,5 +10,7 @@ pipeline {
         steps {
             echo "Test Echo12334455556664444"
         }
+        }
     }
+}
 }
