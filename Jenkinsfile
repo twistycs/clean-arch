@@ -8,7 +8,7 @@ pipeline {
 
         stage('Test Echo') {
         steps {
-            Echo 'Test Echo12334455556664444'
+            echo "Test Echo12334455556664444"
         }
     }
 }
