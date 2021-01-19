@@ -1,18 +1,9 @@
 pipeline {
-    agent {
-        docker { image 'node:14-alpine' }
-    }
-
+    agent any
     stages {
-        stage('Test1') {
-            steps {
-                echo 'test222222'
-            }
-        }
-        stage('Test2') {
-            steps {
-                echo 'test33333333333333333'
-            }
+        stage('Cloning Git') {
+        steps {
+            git([url: 'https://github.com/twistycs/clean-arch.git', branch: 'dev', credentialsId: 'wittharit-github-user-token'])
         }
     }
 }
